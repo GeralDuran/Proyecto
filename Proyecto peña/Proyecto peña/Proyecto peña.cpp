@@ -139,6 +139,21 @@ Intercambio(char* palabra, int indice, int* iNumSugeridas, char szPalabrasSugeri
 		palabra[indice + 1] = temp;
 	}
 }
+void Reemplazo(char* palabra, int indice, char letra, int* iNumSugeridas, char szPalabrasSugeridas[][TAMTOKEN]) {
+	palabra[indice] = letra;
+	strcpy(szPalabrasSugeridas[*iNumSugeridas], palabra);
+	(*iNumSugeridas)++;
+}
+
+void Insercion(char* palabra, int indice, char letra, int* iNumSugeridas, char szPalabrasSugeridas[][TAMTOKEN]) {
+	int len = strlen(palabra);
+	for (int i = len; i >= indice; --i) {
+		palabra[i + 1] = palabra[i];
+	}
+	palabra[indice] = letra;
+	strcpy(szPalabrasSugeridas[*iNumSugeridas], palabra);
+	(*iNumSugeridas)++;
+}
 /*****************************************************************************************************************
 	ListaCandidatas: Esta funcion recupera desde el diccionario las palabras validas y su peso
 	Regresa las palabras ordenadas por su peso
