@@ -56,6 +56,68 @@ void convertirMinusculas(char* cadena)
 	}
 }
 
+void Diccionario(char* szNombre, char szPalabras[][TAMTOKEN], int iEstadisticas[], int* iNumElementos)
+{
+	FILE* fpDicc;
+	fopen_s(&fpDicc, szNombre, "r");
+	if (fpDicc != NULL)
+	{
+		printf("\nSe pudo abrir el archivo.\n");
+		char palabra[TAMTOKEN];
+
+		while (fscanf(fpDicc, "%s", palabra) != EOF)
+		{
+			eliminarPuntuacion(palabra);
+			convertirMinusculas(palabra);
+
+			int i;
+			int encontrado = 0;
+
+			for (i = 0; i < *iNumElementos; i++)
+			{
+				if (strcmp(szPalabras[i], palabra) == 0)
+				{
+					iEstadisticas[i]++;
+					encontrado = 1;
+					break;
+				}
+			}
+
+			if (!encontrado)
+			{
+				strcpy(szPalabras[*iNumElementos], palabra);
+				iEstadisticas[*iNumElementos] = 1;
+				(*iNumElementos)++;
+			}
+		}
+		fclose(fpDicc);
+
+		// Ordenar el diccionario alfabéticamente utilizando el método de la burbuja
+		int i, j;
+		for (i = 0; i < *iNumElementos - 1; i++)
+		{
+			for (j = 0; j < *iNumElementos - i - 1; j++)
+			{
+				if (strcmp(szPalabras[j], szPalabras[j + 1]) > 0)
+				{
+					char temp[TAMTOKEN];
+					strcpy(temp, szPalabras[j]);
+					strcpy(szPalabras[j], szPalabras[j + 1]);
+					strcpy(szPalabras[j + 1], temp);
+
+					int tempFreq = iEstadisticas[j];
+					iEstadisticas[j] = iEstadisticas[j + 1];
+					iEstadisticas[j + 1] = tempFreq;
+				}
+			}
+		}
+	}
+	else
+	{
+		printf("\nNo se pudo abrir el archivo.\n");
+	}
+}
+
 
 
 /*****************************************************************************************************************
