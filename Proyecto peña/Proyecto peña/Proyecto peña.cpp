@@ -207,7 +207,28 @@ void ListaCandidatas(
 	int iPeso[],
 	int& iNumLista) {
 
+	// Copiar palabras candidatas y sus pesos
+	for (int i = 0; i < iNumSugeridas; ++i) {
+		strcpy(szListaFinal[i], szPalabrasSugeridas[i]);
+		iPeso[i] = iEstadisticas[i];
+	}
 
+	// Ordenar las palabras candidatas por peso usando el algoritmo de ordenamiento de burbuja
+	for (int i = 0; i < iNumSugeridas - 1; ++i) {
+		for (int j = 0; j < iNumSugeridas - i - 1; ++j) {
+			if (iPeso[j] < iPeso[j + 1]) {
+				// Intercambiar palabras
+				intercambiar(szListaFinal[j], szListaFinal[j + 1]);
+				// Intercambiar pesos
+				int temp = iPeso[j];
+				iPeso[j] = iPeso[j + 1];
+				iPeso[j + 1] = temp;
+			}
+		}
+	}
+
+	iNumLista = iNumSugeridas; // Actualizar el número de elementos en la lista final
+}
 
 int main() {
 	char szPalabras[MAX_ELEMENTOS][TAMTOKEN];
@@ -216,6 +237,7 @@ int main() {
 	char nombreArchivo[] = fpDicc
 
 		Diccionario(nombreArchivo, szPalabras, iEstadisticas, &iNumElementos);
+
 
 	// Imprime el diccionario ordenado
 	printf("Diccionario ordenado alfabéticamente:\n");
