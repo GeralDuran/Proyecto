@@ -154,6 +154,27 @@ void Insercion(char* palabra, int indice, char letra, int* iNumSugeridas, char s
 	strcpy(szPalabrasSugeridas[*iNumSugeridas], palabra);
 	(*iNumSugeridas)++;
 }
+void ClonaPalabras(char* szPalabraLeida, char szPalabrasSugeridas[][TAMTOKEN], int* iNumSugeridas) {
+	*iNumSugeridas = 0;
+	int len = strlen(szPalabraLeida);
+
+	// Lógica para clonar palabras con intercambio, reemplazo e inserción
+	for (int i = 0; i < len; ++i) {
+		// Intercambio de letras
+		Intercambio(szPalabraLeida, i, iNumSugeridas, szPalabrasSugeridas);
+
+		// Reemplazo de letra por otras letras del alfabeto
+		for (char letra = 'a'; letra <= 'z'; ++letra) {
+			Reemplazo(szPalabraLeida, i, letra, iNumSugeridas, szPalabrasSugeridas);
+		}
+
+		// Inserción de letras del alfabeto
+		for (char letra = 'a'; letra <= 'z'; ++letra) {
+			Insercion(szPalabraLeida, i, letra, iNumSugeridas, szPalabrasSugeridas);
+		}
+	}
+}
+
 /*****************************************************************************************************************
 	ListaCandidatas: Esta funcion recupera desde el diccionario las palabras validas y su peso
 	Regresa las palabras ordenadas por su peso
