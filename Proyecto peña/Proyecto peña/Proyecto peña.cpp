@@ -187,6 +187,26 @@ void ClonaPalabras(char* szPalabraLeida, char szPalabrasSugeridas[][TAMTOKEN], i
 	int		iPeso[],							//Peso de las palabras en la lista final
 	int &	iNumLista)							//Numero de elementos en la szListaFinal
 ******************************************************************************************************************/
+#define TAMTOKEN 50
+#define MAX_CANDIDATAS 100
+
+void intercambiar(char* str1, char* str2) {
+	char temp[TAMTOKEN];
+	strcpy(temp, str1);
+	strcpy(str1, str2);
+	strcpy(str2, temp);
+}
+
+void ListaCandidatas(
+	char szPalabrasSugeridas[][TAMTOKEN],
+	int iNumSugeridas,
+	char szPalabras[][TAMTOKEN],
+	int iEstadisticas[],
+	int iNumElementos,
+	char szListaFinal[][TAMTOKEN],
+	int iPeso[],
+	int& iNumLista) {
+
 
 
 int main() {
