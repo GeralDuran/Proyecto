@@ -126,7 +126,19 @@ void Diccionario(char* szNombre, char szPalabras[][TAMTOKEN], int iEstadisticas[
 	char	szPalabrasSugeridas[][TAMTOKEN], 	//Lista de palabras clonadas
 	int &	iNumSugeridas)						//Numero de elementos en la lista
 ******************************************************************************************************************/
-
+Intercambio(char* palabra, int indice, int* iNumSugeridas, char szPalabrasSugeridas[][TAMTOKEN]) {
+	int len = strlen(palabra);
+	if (indice < len - 1) {
+		char temp = palabra[indice];
+		palabra[indice] = palabra[indice + 1];
+		palabra[indice + 1] = temp;
+		strcpy(szPalabrasSugeridas[*iNumSugeridas], palabra);
+		(*iNumSugeridas)++;
+		temp = palabra[indice];
+		palabra[indice] = palabra[indice + 1];
+		palabra[indice + 1] = temp;
+	}
+}
 /*****************************************************************************************************************
 	ListaCandidatas: Esta funcion recupera desde el diccionario las palabras validas y su peso
 	Regresa las palabras ordenadas por su peso
